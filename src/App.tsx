@@ -25,7 +25,7 @@ const App: React.FC = () => {
           <MerchantModal>
             {(props: ModalViewComponentProps) => <>
               <div className="actions">
-                <Button type="primary" onClick={() => props.openModal(null)}>Add merchant</Button>
+                <Button type="primary" onClick={() => props.openModal({ actionType: 'ADD' })}>Add merchant</Button>
               </div>
               <MerchantsList {...props} />
               </>}

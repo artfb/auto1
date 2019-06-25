@@ -32,16 +32,21 @@ const MerchantsList: React.FC<TableViewComponentProps & ModalViewComponentProps>
     expandIcon={expandIcon}
     expandedRowRender={
       (record) => record.bids.length ?
-        record.bids
-          .sort((a, b) => a.createdAt - b.createdAt)
-          .map(bid => {
-            return <div
-              key={`${bid.id}-${bid.createdAt}`}
-            >
-              {bid.carTitle} - {bid.amount} - {new Date(bid.createdAt * 1000).toLocaleDateString()}
-            </div>
-          }
-        ) : null
+      <Table dataSource={record.bids} columns={[
+          {
+            title: 'ID', dataIndex: 'id', key: 'id',
+            sorter: (a, b) => a.id - b.id,
+          },
+          { title: 'Car', dataIndex: 'carTitle', key: 'carTitle' },
+          { title: 'Amount', dataIndex: 'amount', key: 'amount' },
+          {
+            title: 'Created',
+            dataIndex: 'createdAt',
+            key: 'createdAt',
+            sorter: (a, b) => a.createdAt - b.createdAt,
+            render: (text, record) => new Date(record.createdAt * 1000).toUTCString()
+          },
+      ]} /> : null
     }
   >
     <MerchColumn key="avatar" dataIndex="avatarUrl" render={url => <Avatar src={url} />} />
@@ -57,7 +62,7 @@ const MerchantsList: React.FC<TableViewComponentProps & ModalViewComponentProps>
       key="actions"
       render={(text, record) => (
         <>
-          <a onClick={() => openModal({ merchantId: record.id })}>Edit {record.id}</a>
+          <a onClick={() => openModal({ merchantId: record.id, actionType: 'EDIT' })}>Edit</a>
           <Divider type="vertical" />
           <a onClick={() => openModal({ merchantId: record.id, actionType: 'DELETE' })}>Delete</a>
         </>
