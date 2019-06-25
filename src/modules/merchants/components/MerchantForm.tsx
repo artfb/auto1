@@ -10,7 +10,6 @@ class MerchForm extends React.Component<Props> {
   render() {
     const { getFieldDecorator } = this.props.form;
     const { merchant } = this.props;
-    console.log(merchant);
 
     return (
       <Form layout = "vertical" >
@@ -28,7 +27,7 @@ class MerchForm extends React.Component<Props> {
         </Form.Item>
         <Form.Item label="Email">
           {getFieldDecorator('email', {
-            // rules: [{ type: 'email', message: 'Type in valid email' }],
+            rules: [{ type: 'email', message: 'Type in valid email' }],
             initialValue: merchant ? merchant.email : ''
           })(<Input />)}
         </Form.Item>

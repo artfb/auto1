@@ -72,7 +72,6 @@ export const editMerchantAction = (data: Merchant): ThunkAction<Promise<void>, {
       }
     );
     const merchant = await response.json();
-    console.log(merchant);
 
     dispatch(editMerchantAsync.success(merchant));
     dispatch(closeMerchantModal())
@@ -92,7 +91,6 @@ export const deleteMerchantAction = (id: number): ThunkAction<Promise<void>, {},
         method: 'delete',
       }
     );
-    console.log(response);
 
     dispatch(deleteMerchantAsync.success(id));
     dispatch(closeMerchantModal())
